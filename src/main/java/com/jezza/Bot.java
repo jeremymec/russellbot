@@ -29,6 +29,10 @@ public class Bot {
                 .flatMap(channel -> channel.createMessage(generateRandomMessage()))
                 .then());
 
+        commands.put("russell tell me a story", event -> event.getMessage().getChannel()
+                .flatMap(channel -> channel.createMessage(tellMeAStory()))
+                .then());
+
         client.getEventDispatcher().on(MessageCreateEvent.class)
                 .flatMap(event -> Mono.justOrEmpty(event.getMessage().getContent())
                         .flatMap(content -> Flux.fromIterable(commands.entrySet())
@@ -48,6 +52,23 @@ public class Bot {
 
         return quotes.get(rand.nextInt(range));
 
+    }
+
+    private static String tellMeAStory(){
+        return "baron winds down to 1000 hp left in game\n" +
+                "smite is bounded to Kevin who turns face to face against Min Yang\n" +
+                "\"You took my family\"\n" +
+                "moves to the left\n" +
+                "\"You took my friends\"\n" +
+                "moves to the right\n" +
+                "\"You took all that was dear to me\"\n" +
+                "Baron winds down to 800 health\n" +
+                "\"I cant get them back, but I can do this for friendship, FOR MY FRIENDS\"\n" +
+                "goes up, key on smite\n" +
+                "Presses, Kevin falls to the ground, exhausted.\n" +
+                "\"DL... Senpai... I...\"\n" +
+                "faints\n" +
+                "Kevin smited Min yang";
     }
 
     private static void populateQuotes() {
